@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   enterInputValue,
+  enteredCorrectKey,
   keyPressed,
   randomGenerator,
 } from "../actions/action";
@@ -14,6 +15,13 @@ export default function Touchtyping() {
   const keyPressCount = useSelector((state) => state.typingReducer.keyPressed);
   const expectedVal = useSelector((state) => state.typingReducer.expectedValue);
   const inputVal = useSelector((state) => state.typingReducer.inputValue);
+  const correctKeyCount = useSelector(
+    (state) => state.typingReducer.correctKey
+  );
+  const accuracy =
+    keyPressCount === 0
+      ? 0
+      : ((correctKeyCount / keyPressCount) * 100).toFixed(2);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,17 +43,19 @@ export default function Touchtyping() {
     if (e.target.value.length < inputVal.length) {
       console.log("back space");
     }
+    if (e.target.value.slice(-1) === expectedVal.charAt(nextExpKey)) {
+      setnextExpKey((prev) => prev + 1);
+      dispatch(enteredCorrectKey());
+    } else {
+      console.log("wrong entered");
+      return;
+    }
     if (e.target.value.length === expectedVal.length) {
       console.log("Completed");
       dispatch(randomGenerator());
       dispatch(enterInputValue(""));
       setnextExpKey(0);
       return;
-    }
-    if (e.target.value.slice(-1) === expectedVal.charAt(nextExpKey)) {
-      setnextExpKey((prev) => prev + 1);
-    } else {
-      console.log("wrong entered");
     }
     setIsTimer(true);
   };
@@ -64,7 +74,7 @@ export default function Touchtyping() {
           <h2>WPM: 40</h2>
         </div>
         <div className="accuracy measure-box">
-          <h2>Accuracy: 100%</h2>
+          <h2>Accuracy: {accuracy}%</h2>
         </div>
         <div className="key-pressed measure-box">
           <h2>Key Pressed: {keyPressCount}</h2>

@@ -1,7 +1,13 @@
-import { INPUT_ENTER, KEY_PRESSED, RANDOM_GEN } from "../actions/action";
+import {
+  CORRECT_KEY_PRESSED,
+  INPUT_ENTER,
+  KEY_PRESSED,
+  RANDOM_GEN,
+} from "../actions/action";
 
 const initialState = {
   keyPressed: 0,
+  correctKey: 0,
   expectedValue: "",
   inputValue: "",
 };
@@ -33,6 +39,11 @@ export default function typingReducer(state = initialState, action) {
       return {
         ...state,
         inputValue: action.value,
+      };
+    case CORRECT_KEY_PRESSED:
+      return {
+        ...state,
+        correctKey: state.correctKey + 1,
       };
     default:
       return state;
