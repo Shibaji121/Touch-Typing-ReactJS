@@ -26,8 +26,8 @@ export default function Touchtyping(props) {
     if (e.target.value.length < inputValue.length) {
       console.log("back space");
     }
-    if (inputValue === props.expectedVal) {
-      alert("Completed");
+    if (e.target.value.length === props.expectedVal.length) {
+      console.log("Completed");
     }
     if (e.target.value.slice(-1) !== props.expectedVal.charAt(nextExpKey)) {
       console.log("You entered wrong letter");
@@ -60,7 +60,6 @@ export default function Touchtyping(props) {
       </div>
       <div className="expected-phrase">{props.expectedVal}</div>
       <input
-        value={inputValue}
         className="typing-input"
         placeholder="Enter as per the above shown sentence"
         onChange={handleInputChange}
