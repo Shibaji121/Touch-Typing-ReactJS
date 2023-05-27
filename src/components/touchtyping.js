@@ -39,13 +39,13 @@ export default function Touchtyping() {
       console.log("Completed");
       dispatch(randomGenerator());
       dispatch(enterInputValue(""));
+      setnextExpKey(0);
       return;
     }
-    if (e.target.value.slice(-1) !== expectedVal.charAt(nextExpKey)) {
-      console.log("You entered wrong letter");
-      setnextExpKey((prev) => prev - 1);
-    } else {
+    if (e.target.value.slice(-1) === expectedVal.charAt(nextExpKey)) {
       setnextExpKey((prev) => prev + 1);
+    } else {
+      console.log("wrong entered");
     }
     setIsTimer(true);
   };
