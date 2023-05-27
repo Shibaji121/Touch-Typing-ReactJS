@@ -33,7 +33,6 @@ export default function typingReducer(state = initialState, action) {
         bigrams.push(bigram);
       }
       const randomSent = bigrams.join(" ");
-      console.log(randomSent);
       return {
         ...state,
         expectedValue: randomSent,
