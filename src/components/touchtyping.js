@@ -56,7 +56,7 @@ export default function Touchtyping() {
     dispatch(keyPressed(keyPressCount));
 
     // Checking Value entered correctly logic
-    if (e.target.value.slice(-1) === expectedVal.charAt(nextExpKey)) {
+    if (e.target.value === expectedVal.substring(0, nextExpKey + 1)) {
       setnextExpKey((prev) => prev + 1);
       dispatch(enteredCorrectKey());
       ref.current.style.background = "white";
@@ -91,7 +91,6 @@ export default function Touchtyping() {
       toast.info("Back Button Clicked", {
         position: toast.POSITION.TOP_LEFT,
       });
-      setnextExpKey((prev) => prev - 1);
       return;
     }
   };
@@ -103,7 +102,7 @@ export default function Touchtyping() {
     } else {
       setBackground("white");
     }
-    toast.success("Background Mode Changed", {
+    toast.success(`${background} Mode Changed`, {
       position: toast.POSITION.TOP_LEFT,
     });
   };
