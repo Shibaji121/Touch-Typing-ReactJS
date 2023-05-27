@@ -166,8 +166,11 @@ export default function Touchtyping() {
             <div className="key-pressed measure-box">
               <h2>Key Pressed: {keyPressCount}</h2>
             </div>
+            <div className="level measure-box">
+              <h2>Level: {levels}</h2>
+            </div>
           </div>
-          <h2 className="level measure-box">Level: {levels}</h2>
+
           <div className="expected-phrase">{expectedVal}</div>
           <input
             ref={ref}

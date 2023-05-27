@@ -23,7 +23,7 @@ export default function typingReducer(state = initialState, action) {
         keyPressed: state.keyPressed + 1,
       };
     case RANDOM_GEN:
-      const letters = "asdfjkl";
+      const letters = "asdfjkl;";
       const bigrams = [];
       for (let i = 0; i < 6; i++) {
         const randomIndex = Math.floor(Math.random() * (letters.length - 1));
