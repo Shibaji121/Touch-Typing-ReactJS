@@ -1,5 +1,17 @@
-const Initial_State = {};
+import { KEY_PRESSED } from "../actions/action";
 
-export default function typingReducer(state = Initial_State, action) {
-  return state;
+const initialState = {
+  keyPressed: 0,
+};
+
+export default function typingReducer(state = initialState, action) {
+  switch (action.type) {
+    case KEY_PRESSED:
+      return {
+        ...state,
+        keyPressed: state.keyPressed + 1,
+      };
+    default:
+      return state;
+  }
 }

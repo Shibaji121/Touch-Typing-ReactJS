@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { keyPressed } from "../actions/action";
 
 export default function Touchtyping(props) {
   const [timer, setTimer] = useState(10);
-  const [keysPressed, setKeysPressed] = useState(0);
   const [isTimer, setIsTimer] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [nextExpKey, setnextExpKey] = useState(0);
+
+  const keyPressCount = useSelector((state) => state.typingReducer.keyPressed);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let interval;
@@ -22,7 +26,7 @@ export default function Touchtyping(props) {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    setKeysPressed((prevCount) => prevCount + 1);
+    dispatch(keyPressed(keyPressCount));
     if (e.target.value.length < inputValue.length) {
       console.log("back space");
     }
@@ -58,7 +62,7 @@ export default function Touchtyping(props) {
           <h2>Accuracy: 100%</h2>
         </div>
         <div className="key-pressed measure-box">
-          <h2>Key Pressed: {keysPressed}</h2>
+          <h2>Key Pressed: {keyPressCount}</h2>
         </div>
       </div>
       <div className="expected-phrase">{props.expectedVal}</div>
