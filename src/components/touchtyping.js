@@ -79,6 +79,7 @@ export default function Touchtyping() {
       dispatch(enterInputValue(""));
       setnextExpKey(0);
       dispatch(increaseLevel());
+      setIsTimer(false);
       return;
     }
     setIsTimer(true);
