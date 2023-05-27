@@ -1,8 +1,9 @@
-import { KEY_PRESSED, RANDOM_GEN } from "../actions/action";
+import { INPUT_ENTER, KEY_PRESSED, RANDOM_GEN } from "../actions/action";
 
 const initialState = {
   keyPressed: 0,
   expectedValue: "",
+  inputValue: "",
 };
 
 export default function typingReducer(state = initialState, action) {
@@ -27,6 +28,11 @@ export default function typingReducer(state = initialState, action) {
       return {
         ...state,
         expectedValue: randomSent,
+      };
+    case INPUT_ENTER:
+      return {
+        ...state,
+        inputValue: action.value,
       };
     default:
       return state;

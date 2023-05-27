@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { keyPressed, randomGenerator } from "../actions/action";
+import {
+  enterInputValue,
+  keyPressed,
+  randomGenerator,
+} from "../actions/action";
 
 export default function Touchtyping() {
   const [timer, setTimer] = useState(10);
   const [isTimer, setIsTimer] = useState(false);
-  const [inputValue, setInputValue] = useState("");
   const [nextExpKey, setnextExpKey] = useState(0);
 
   const keyPressCount = useSelector((state) => state.typingReducer.keyPressed);
   const expectedVal = useSelector((state) => state.typingReducer.expectedValue);
+  const inputVal = useSelector((state) => state.typingReducer.inputValue);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,15 +30,15 @@ export default function Touchtyping() {
   }, [isTimer, timer]);
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    dispatch(enterInputValue(e.target.value));
     dispatch(keyPressed(keyPressCount));
-    if (e.target.value.length < inputValue.length) {
+    if (e.target.value.length < inputVal.length) {
       console.log("back space");
     }
     if (e.target.value.length === expectedVal.length) {
       console.log("Completed");
       dispatch(randomGenerator());
-      setInputValue("");
+      dispatch(enterInputValue(""));
       return;
     }
     if (e.target.value.slice(-1) !== expectedVal.charAt(nextExpKey)) {
@@ -68,7 +72,7 @@ export default function Touchtyping() {
       </div>
       <div className="expected-phrase">{expectedVal}</div>
       <input
-        value={inputValue}
+        value={inputVal}
         className="typing-input"
         placeholder="Enter as per the above shown sentence"
         onChange={handleInputChange}
