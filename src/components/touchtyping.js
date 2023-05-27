@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { keyPressed } from "../actions/action";
+import { keyPressed, randomGenerator } from "../actions/action";
 
-export default function Touchtyping(props) {
+export default function Touchtyping() {
   const [timer, setTimer] = useState(10);
   const [isTimer, setIsTimer] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [nextExpKey, setnextExpKey] = useState(0);
 
   const keyPressCount = useSelector((state) => state.typingReducer.keyPressed);
+  const expectedVal = useSelector((state) => state.typingReducer.expectedValue);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,13 +31,13 @@ export default function Touchtyping(props) {
     if (e.target.value.length < inputValue.length) {
       console.log("back space");
     }
-    if (e.target.value.length === props.expectedVal.length) {
+    if (e.target.value.length === expectedVal.length) {
       console.log("Completed");
-      props.randomBigramGenerate();
+      dispatch(randomGenerator());
       setInputValue("");
       return;
     }
-    if (e.target.value.slice(-1) !== props.expectedVal.charAt(nextExpKey)) {
+    if (e.target.value.slice(-1) !== expectedVal.charAt(nextExpKey)) {
       console.log("You entered wrong letter");
       setnextExpKey((prev) => prev - 1);
     } else {
@@ -65,7 +66,7 @@ export default function Touchtyping(props) {
           <h2>Key Pressed: {keyPressCount}</h2>
         </div>
       </div>
-      <div className="expected-phrase">{props.expectedVal}</div>
+      <div className="expected-phrase">{expectedVal}</div>
       <input
         value={inputValue}
         className="typing-input"
