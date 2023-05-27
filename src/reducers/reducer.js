@@ -1,8 +1,10 @@
 import {
   CORRECT_KEY_PRESSED,
+  INCREASE_LEVEL,
   INPUT_ENTER,
   KEY_PRESSED,
   RANDOM_GEN,
+  RESET_ALL,
 } from "../actions/action";
 
 const initialState = {
@@ -10,6 +12,7 @@ const initialState = {
   correctKey: 0,
   expectedValue: "",
   inputValue: "",
+  levels: 1,
 };
 
 export default function typingReducer(state = initialState, action) {
@@ -44,6 +47,19 @@ export default function typingReducer(state = initialState, action) {
       return {
         ...state,
         correctKey: state.correctKey + 1,
+      };
+    case INCREASE_LEVEL:
+      return {
+        ...state,
+        levels: state.levels + 1,
+      };
+    case RESET_ALL:
+      return {
+        ...state,
+        keyPressed: 0,
+        correctKey: 0,
+        inputValue: "",
+        levels: 1,
       };
     default:
       return state;
