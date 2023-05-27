@@ -5,6 +5,10 @@ function App() {
   const [expectedVal, setExpectedVal] = useState("");
 
   useEffect(() => {
+    randomBigramGenerate();
+  }, []);
+
+  const randomBigramGenerate = () => {
     const letters = "asdfjkl";
     const bigrams = [];
     for (let i = 0; i < 6; i++) {
@@ -17,11 +21,14 @@ function App() {
     const randomSent = bigrams.join(" ");
     console.log(randomSent);
     setExpectedVal(randomSent);
-  }, []);
+  };
 
   return (
     <div className="App">
-      <Touchtyping expectedVal={expectedVal} />
+      <Touchtyping
+        expectedVal={expectedVal}
+        randomBigramGenerate={randomBigramGenerate}
+      />
     </div>
   );
 }
