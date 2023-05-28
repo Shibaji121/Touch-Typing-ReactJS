@@ -40,7 +40,7 @@ export default function Touchtyping() {
         setTimer((prevTime) => prevTime - 1);
       }, 1000);
     }
-    if (timer === 0) {
+    if (timer === 0 && isTimer) {
       setIsTimer(false);
       setCompleted(true);
       toast.success("Timer Finished!!! See The results", {
